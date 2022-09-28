@@ -4,6 +4,7 @@ import '../styles/tasklist.scss'
 
 import { FiTrash, FiCheckSquare } from 'react-icons/fi'
 
+import { v4 as uuidv4} from 'uuid'
 interface Task {
   id: number;
   title: string;
@@ -13,10 +14,22 @@ interface Task {
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
-
+ 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
-  }
+    const unique_id = uuidv4()
+       
+    let task = {
+      id: parseInt(unique_id),
+      title: newTaskTitle,
+      isComplete : false
+    }
+    
+    tasks.push(task)
+      
+      setTasks(tasks)
+      setNewTaskTitle('')
+  } 
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
